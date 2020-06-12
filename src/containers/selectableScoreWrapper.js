@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import ReduxPromise from 'redux-promise';
 
 import { reducers } from 'meld-clients-core/lib/reducers'
-import SelectableScoreApp from './selectableScoreApp'
+import SolidWrapper from './solidWrapper'
 
 const createStoreWithMiddleware = applyMiddleware(thunk, ReduxPromise)(createStore);
 
@@ -18,7 +18,7 @@ export default class SelectableScoreWrapper extends Component {
   render() {
     return (
       <Provider store={createStoreWithMiddleware(reducers)}>
-        <SelectableScoreApp uri = { this.props.uri} vrvOptions = { this.props.vrvOptions }/>
+        <SolidWrapper uri = { this.props.uri} vrvOptions = { this.props.vrvOptions }/>
       </Provider>
     )
   }
