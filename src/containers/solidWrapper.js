@@ -28,7 +28,7 @@ export default function SolidWrapper(props) {
         <LoggedIn>
           <p><LogoutButton>Log out</LogoutButton> You are logged in as <Value src="user.name"/></p>
           { typeof userPOD !== "undefined"
-           ? <SelectableScoreApp uri = { props.uri } vrvOptions={ props.vrvOptions } submitUri={ `${userPOD}public/` }/>
+           ? <SelectableScoreApp uri = { props.uri } vrvOptions={ props.vrvOptions } submitUri={ `${userPOD}public/annotations/` }/>
            : <div>Loading... </div>
           }
         </LoggedIn>

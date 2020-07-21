@@ -12,11 +12,13 @@ export default class SelectableScoreApp extends Component {
     super(props);
     this.state = { 
       selection: [],
+      updateAnnotationContainer: true, /* set to true everytime an update is required by your app */
       uri: this.props.uri /* you can set this dynamically if your app requires dynamic MEI updates */
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleReceiveAnnotationContainerContent = this.handleReceiveAnnotationContainerContent.bind(this);
   }
 
   handleSelectionChange(selection) { 
@@ -32,11 +34,17 @@ export default class SelectableScoreApp extends Component {
     /* do any app-specific actions and return the object (e.g. a Web Annotation) 
      * to be submitted to the user POD */
     console.log("Received args: ", args);
+    this.setState({ updateAnnotationContainer: true });
     return {
       "@context": "http://www.w3.org/ns/anno.jsonld",
       "target": this.state.selection.map( (elem) => this.state.uri + "#" + elem.getAttribute("id") ),
       "motivation": "highlighting"
     }
+  }
+
+  handleReceiveAnnotationContainerContent(content) { 
+    console.log("Received annotation container content: ", content)
+    this.setState({ updateAnnotationContainer: false })
   }
 
   render() {
@@ -52,7 +60,6 @@ export default class SelectableScoreApp extends Component {
         <NextPageButton 
           buttonContent = { <span>Next</span> }
           uri = { this.state.uri }
-          
         />
 
         { /* pass anything as buttonContent that you'd like to function as a clickable prev page button */ }
@@ -74,6 +81,9 @@ export default class SelectableScoreApp extends Component {
           onSelectionChange={ this.handleSelectionChange } 
           selectorString = { selectorString }
           onScoreUpdate = { this.handleScoreUpdate }
+          annotationContainerUri = { this.props.submitUri }
+          onReceiveAnnotationContainerContent = { this.handleReceiveAnnotationContainerContent }
+          updateAnnotationContainer = { this.state.updateAnnotationContainer }
         />
       </div>
     )
