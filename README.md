@@ -13,6 +13,9 @@ Now point your web browser at https://localhost:8080. Wait a few moments for [Ve
 
 Click and drag to select MEI elements (in this example, notes); hold down shift or ctrl to select discontinuous regions.
 
+This application expects your Solid POD to have a folder called /public/annotations. At the moment, it is necessary to create this yourself using the Solid UI. This will be automated in future versions.
+
+
 ## Known issues
 
 Paging is currently very slow. We're working on improving this, through [MELD](https://github.com/oerc-music/meld)  optimisations and potentially by running Verovio as a Web Worker (work in progress!)
