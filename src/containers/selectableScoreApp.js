@@ -18,6 +18,7 @@ export default class SelectableScoreApp extends Component {
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleResponse = this.handleResponse.bind(this);
     this.handleReceiveAnnotationContainerContent = this.handleReceiveAnnotationContainerContent.bind(this);
   }
 
@@ -34,13 +35,18 @@ export default class SelectableScoreApp extends Component {
     /* do any app-specific actions and return the object (e.g. a Web Annotation) 
      * to be submitted to the user POD */
     console.log("Received args: ", args);
-    this.setState({ updateAnnotationContainer: true });
     return {
       "@context": "http://www.w3.org/ns/anno.jsonld",
       "target": this.state.selection.map( (elem) => this.state.uri + "#" + elem.getAttribute("id") ),
       "motivation": "highlighting"
     }
   }
+
+  handleResponse(resp) { 
+    /* received server response to submit-button POST */
+    this.setState({ updateAnnotationContainer: true })
+  }
+
 
   handleReceiveAnnotationContainerContent(content) { 
     console.log("Received annotation container content: ", content)
@@ -71,8 +77,9 @@ export default class SelectableScoreApp extends Component {
         <SubmitButton
           buttonContent = "Submit to Solid POD"
           submitUri = { this.props.submitUri }
-          submitHandler = { this.handleSubmit}
+          submitHandler = { this.handleSubmit }
           submitHandlerArgs = { { "test": "test" } }
+          onResponse = { this.handleResponse }
         />
 
         <SelectableScore 
