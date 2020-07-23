@@ -12,7 +12,7 @@ export default class SelectableScoreApp extends Component {
     super(props);
     this.state = { 
       selection: [],
-      updateAnnotationContainer: true, /* set to true everytime an update is required by your app */
+      toggleAnnotationRetrieval: true, /* set to true everytime an update is required by your app */
       uri: this.props.uri /* you can set this dynamically if your app requires dynamic MEI updates */
     };
     this.handleSelectionChange = this.handleSelectionChange.bind(this);
@@ -44,13 +44,13 @@ export default class SelectableScoreApp extends Component {
 
   handleResponse(resp) { 
     /* received server response to submit-button POST */
-    this.setState({ updateAnnotationContainer: true })
+    this.setState({ toggleAnnotationRetrieval: true })
   }
 
 
   handleReceiveAnnotationContainerContent(content) { 
     console.log("Received annotation container content: ", content)
-    this.setState({ updateAnnotationContainer: false })
+    this.setState({ toggleAnnotationRetrieval: false })
   }
 
   render() {
@@ -90,7 +90,7 @@ export default class SelectableScoreApp extends Component {
           onScoreUpdate = { this.handleScoreUpdate }
           annotationContainerUri = { this.props.submitUri }
           onReceiveAnnotationContainerContent = { this.handleReceiveAnnotationContainerContent }
-          updateAnnotationContainer = { this.state.updateAnnotationContainer }
+          toggleAnnotationRetrieval = { this.state.toggleAnnotationRetrieval }
         />
       </div>
     )
