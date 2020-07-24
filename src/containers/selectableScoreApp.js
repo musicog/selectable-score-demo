@@ -44,6 +44,7 @@ export default class SelectableScoreApp extends Component {
 
   handleResponse(resp) { 
     /* received server response to submit-button POST */
+    console.log("Received response after submit: ", resp);
     this.setState({ toggleAnnotationRetrieval: true })
   }
 
