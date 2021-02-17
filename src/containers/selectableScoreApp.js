@@ -85,7 +85,7 @@ export default class SelectableScoreApp extends Component {
 
         <SelectableScore 
           uri={ this.state.uri } 
-          options={ this.props.vrvOptions } 
+          vrvOptions={ this.props.vrvOptions } 
           onSelectionChange={ this.handleSelectionChange } 
           selectorString = { selectorString }
           onScoreUpdate = { this.handleScoreUpdate }
